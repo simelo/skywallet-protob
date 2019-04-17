@@ -116,8 +116,8 @@ message Features {
  */
 message ApplySettings {
     optional string language = 1;
-    optional string label = 2;
-    optional bool use_passphrase = 3;
+    optional bool use_passphrase = 2;
+    optional string label = 3;
     optional bytes homescreen = 4;
 }
 

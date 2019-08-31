@@ -478,4 +478,6 @@ message TransactionSign {
 	repeated SkycoinTransactionInput transactionIn = 2;
 	required uint32 nbOut = 3;
 	repeated SkycoinTransactionOutput transactionOut = 4;
+	optional bool use_passphrase = 5;
 }
+	

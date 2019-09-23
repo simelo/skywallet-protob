@@ -161,6 +161,7 @@ message SkycoinAddress {
 	required uint32 address_n = 1; // address iterator
 	optional uint32 start_index = 2; // index of the first address - if not provided the device will assume 0
 	optional bool confirm_address = 3;
+	optional Bip44AddrIndex bip44_addr = 4;  // specification to generate a bip 44 address.
 }
 
 
@@ -199,6 +200,7 @@ message SkycoinCheckMessageSignature {
 message SkycoinSignMessage {
 	required uint32 address_n = 1; //address iterator
 	required string message = 2;   //message that we want to sign
+	optional Bip44AddrIndex bip44_addr = 3;
 }
 
 /**

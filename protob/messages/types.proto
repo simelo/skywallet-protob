@@ -312,3 +312,11 @@ message SkycoinTransactionOutput {
 	required uint64 hour = 3;          // Coin hours involved during transaction
 	optional uint32 address_index = 4; // Receiver address index if managed by this Skywallet
 }
+
+message Bip44AddrIndex {
+	required uint32 purpose = 1;
+	required uint32 coin_type = 2;
+	required uint32 account = 3;
+	required uint32 change = 4;
+	required uint32 address_index = 5;
+}

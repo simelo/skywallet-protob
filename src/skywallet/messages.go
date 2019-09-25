@@ -91,6 +91,31 @@ func MessageAddressGen(addressN, startIndex uint32, confirmAddress bool) ([][64]
 	return chunks, nil
 }
 
+// MessageAddressGen prepare MessageAddressGen request
+func MessageAddressGenBip44(addressN, startIndex, coinType, account uint32, confirmAddress bool) ([][64]byte, error) {
+	skycoinAddress := &messages.SkycoinAddress{
+		ConfirmAddress: proto.Bool(confirmAddress),
+		StartIndex:     proto.Uint32(0), // TODO remove this field from here
+		AddressN:		proto.Uint32(0), // TODO remove this field from here
+		Bip44Addr:      &messages.Bip44AddrIndex{
+			Purpose: proto.Uint32(firstHardenedChild + 44), // 44'
+			CoinType: proto.Uint32(firstHardenedChild + coinType), // coinType'
+			Account: proto.Uint32(firstHardenedChild + account), // account'
+			Change: proto.Uint32(0),
+			AddressStartIndex: proto.Uint32(startIndex),
+			AddressN: proto.Uint32(addressN),
+		},
+	}
+
+	data, err := proto.Marshal(skycoinAddress)
+	if err != nil {
+		return [][64]byte{}, err
+	}
+
+	chunks := makeSkyWalletMessage(data, messages.MessageType_MessageType_SkycoinAddress)
+	return chunks, nil
+}
+
 // MessageDeviceGetRawEntropy prepare GetEntropy request
 func MessageDeviceGetRawEntropy(entropyBytes uint32) ([][64]byte, error) {
 	getEntropy := &messages.GetRawEntropy{

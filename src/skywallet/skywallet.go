@@ -48,6 +48,15 @@ var (
 	ErrInvalidWordCount = errors.New("word count must be 12 or 24")
 	// ErrNoDeviceConnected is returned if no device is connected to the system
 	ErrNoDeviceConnected = errors.New("no device connected")
+	// ErrInvalidWalletType a valid wallet type should  be specified
+	ErrInvalidWalletType = errors.New("invalid wallet type, options are: " + walletTypeDeterministic + " or " + walletTypeBip44)
+)
+
+const (
+	walletTypeDeterministic = "deterministic"
+	walletTypeBip44 = "bip44"
+	coinTypeSkycoin = 8000
+	firstHardenedChild = uint32(0x80000000)
 )
 
 //go:generate mockery -name Devicer -case underscore -inpkg -testonly
@@ -192,7 +201,7 @@ func (d *Device) GetUsbInfo() ([]usb.Info, error) {
 }
 
 // AddressGen Ask the device to generate an address
-func (d *Device) AddressGen(addressN, startIndex uint32, confirmAddress bool) (wire.Message, error) {
+func (d *Device) AddressGen(addressN, startIndex uint32, confirmAddress bool, walletType string) (wire.Message, error) {
 	if err := d.Connect(); err != nil {
 		return wire.Message{}, err
 	}
@@ -202,7 +211,16 @@ func (d *Device) AddressGen(addressN, startIndex uint32, confirmAddress bool) (w
 		return wire.Message{}, ErrAddressNZero
 	}
 
-	addressGenChunks, err := MessageAddressGen(addressN, startIndex, confirmAddress)
+	var err error
+	var addressGenChunks [][64]byte
+	switch walletType {
+	case walletTypeDeterministic:
+		addressGenChunks, err = MessageAddressGen(addressN, startIndex, confirmAddress)
+	case walletTypeBip44:
+		addressGenChunks, err = MessageAddressGenBip44(addressN, startIndex, coinTypeSkycoin, 0, confirmAddress)
+	default:
+		return wire.Message{}, ErrInvalidWalletType
+	}
 	if err != nil {
 		return wire.Message{}, err
 	}

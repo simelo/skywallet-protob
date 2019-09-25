@@ -38,9 +38,14 @@ func addressGenCmd() gcli.Command {
 				Usage:  "Device type to send instructions to, hardware wallet (USB) or emulator.",
 				EnvVar: "DEVICE_TYPE",
 			},
+			gcli.StringFlag{
+				Name: "walletType",
+				Usage: "Wallet type. Types are \"deterministic\" or \"bip44\"",
+			},
 		},
 		OnUsageError: onCommandUsageError(name),
 		Action: func(c *gcli.Context) {
+			walletType := c.String("walletType")
 			addressN := c.Int("addressN")
 			startIndex := c.Int("startIndex")
 			confirmAddress := c.Bool("confirmAddress")
@@ -60,7 +65,7 @@ func addressGenCmd() gcli.Command {
 			}
 
 			var pinEnc string
-			msg, err := device.AddressGen(uint32(addressN), uint32(startIndex), confirmAddress)
+			msg, err := device.AddressGen(uint32(addressN), uint32(startIndex), confirmAddress, walletType)
 			if err != nil {
 				log.Error(err)
 				return

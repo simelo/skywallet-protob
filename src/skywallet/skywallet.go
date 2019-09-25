@@ -747,13 +747,22 @@ func (d *Device) SetMnemonic(mnemonic string) (wire.Message, error) {
 }
 
 // SignMessage Ask the device to sign a message using the secret key at given index.
-func (d *Device) SignMessage(addressIndex int, message string) (wire.Message, error) {
+func (d *Device) SignMessage(addressN, addressIndex int, message, walletType string) (wire.Message, error) {
 	if err := d.Connect(); err != nil {
 		return wire.Message{}, err
 	}
 	defer d.Disconnect()
 
-	signMessageChunks, err := MessageSignMessage(addressIndex, message)
+	var err error
+	var signMessageChunks [][64]byte
+	switch walletType {
+	case walletTypeDeterministic:
+		signMessageChunks, err = MessageSignMessage(addressIndex, message)
+	case walletTypeBip44:
+		signMessageChunks, err = MessageSignMessageBip44(uint32(addressIndex), uint32(addressN), coinTypeSkycoin, 0, message)
+	default:
+		return wire.Message{}, ErrInvalidWalletType
+	}
 	if err != nil {
 		return wire.Message{}, err
 	}

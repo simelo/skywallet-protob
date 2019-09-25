@@ -310,6 +310,30 @@ func MessageSignMessage(addressIndex int, message string) ([][64]byte, error) {
 	return chunks, nil
 }
 
+// MessageSignMessageBip44 prepare MessageSignMessage request
+func MessageSignMessageBip44(startIndex, addressN, coinType, account uint32, message string) ([][64]byte, error) {
+	skycoinSignMessage := &messages.SkycoinSignMessage{
+		AddressN: proto.Uint32(uint32(0)),  // TODO remove this field
+		Message:  proto.String(message),
+		Bip44Addr:      &messages.Bip44AddrIndex{
+			Purpose: proto.Uint32(firstHardenedChild + 44), // 44'
+			CoinType: proto.Uint32(firstHardenedChild + coinType), // coinType'
+			Account: proto.Uint32(firstHardenedChild + account), // account'
+			Change: proto.Uint32(0),
+			AddressStartIndex: proto.Uint32(startIndex),
+			AddressN: proto.Uint32(addressN),
+		},
+	}
+
+	data, err := proto.Marshal(skycoinSignMessage)
+	if err != nil {
+		return [][64]byte{}, err
+	}
+
+	chunks := makeSkyWalletMessage(data, messages.MessageType_MessageType_SkycoinSignMessage)
+	return chunks, nil
+}
+
 // MessageTransactionSign prepare MessageTransactionSign request
 func MessageTransactionSign(inputs []*messages.SkycoinTransactionInput, outputs []*messages.SkycoinTransactionOutput) ([][64]byte, error) {
 	skycoinTransactionSignMessage := &messages.TransactionSign{

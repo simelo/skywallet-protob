@@ -353,6 +353,44 @@ func MessageTransactionSign(inputs []*messages.SkycoinTransactionInput, outputs 
 	return chunks, nil
 }
 
+// MessageTransactionSignBip44 prepare MessageTransactionSign request
+func MessageTransactionSignBip44(coinType, account uint32, inputs []*messages.SkycoinTransactionInput, outputs []*messages.SkycoinTransactionOutput) ([][64]byte, error) {
+	for idxInput := range inputs {
+		inputs[idxInput].Bip44Addr = &messages.Bip44AddrIndex{
+			Purpose: proto.Uint32(firstHardenedChild + 44), // 44'
+			CoinType: proto.Uint32(firstHardenedChild + coinType), // coinType'
+			Account: proto.Uint32(firstHardenedChild + account), // account'
+			Change: proto.Uint32(0),
+			AddressStartIndex: proto.Uint32(*inputs[idxInput].Index),
+			AddressN: proto.Uint32(1),
+		}
+	}
+	for idxOutput := range outputs {
+		outputs[idxOutput].Bip44Addr = &messages.Bip44AddrIndex{
+			Purpose: proto.Uint32(firstHardenedChild + 44), // 44'
+			CoinType: proto.Uint32(firstHardenedChild + coinType), // coinType'
+			Account: proto.Uint32(firstHardenedChild + account), // account'
+			Change: proto.Uint32(0),
+			AddressStartIndex: proto.Uint32(*outputs[idxOutput].AddressIndex),
+			AddressN: proto.Uint32(1),
+		}
+	}
+	skycoinTransactionSignMessage := &messages.TransactionSign{
+		NbIn:           proto.Uint32(uint32(len(inputs))),
+		NbOut:          proto.Uint32(uint32(len(outputs))),
+		TransactionIn:  inputs,
+		TransactionOut: outputs,
+	}
+
+	data, err := proto.Marshal(skycoinTransactionSignMessage)
+	if err != nil {
+		return [][64]byte{}, err
+	}
+
+	chunks := makeSkyWalletMessage(data, messages.MessageType_MessageType_TransactionSign)
+	return chunks, nil
+}
+
 // MessageWipe prepare MessageWipe request
 func MessageWipe() ([][64]byte, error) {
 	wipeDevice := &messages.WipeDevice{}

@@ -148,6 +148,7 @@ enum FirmwareFeatures {
  * @used_in DebugLinkState
  * @used_in Storage
  */
+ /*TODO remove this */
 message HDNodeType {
 	required uint32 depth = 1;
 	required uint32 fingerprint = 2;
@@ -157,6 +158,7 @@ message HDNodeType {
 	optional bytes public_key = 6;
 }
 
+/*TODO remove this */
 message HDNodePathType {
 	required HDNodeType node = 1;						// BIP-32 node in deserialized form
 	repeated uint32 address_n = 2;						// BIP-32 path to derive the key from node
@@ -184,6 +186,7 @@ message CoinType {
  * Type of redeem script used in input
  * @used_in TxInputType
  */
+/* TODO remove this */
 message MultisigRedeemScriptType {
 	repeated HDNodePathType pubkeys = 1;					// pubkeys from multisig address (sorted lexicographically)
 	repeated bytes signatures = 2;						// existing signatures for partially signed input
@@ -288,6 +291,7 @@ message IdentityType {
  * Ask Skywallet to generate a skycoin address
  * @used_in SkycoinAddress
  */
+/* TODO remove this */
 enum SkycoinAddressType {
 	AddressTypeSkycoin = 1;
 	AddressTypeBitcoin = 2;

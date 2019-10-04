@@ -300,6 +300,7 @@ enum SkycoinAddressType {
 message SkycoinTransactionInput {
 	required string hashIn = 1; // Input hash
 	optional uint32 index = 2;  // Skywallet address index for signing. May be omitted if spent output managed by another wallet
+	optional Bip44AddrIndex bip44_addr = 3;  // specification to generate a bip 44 address.
 }
 
 /**
@@ -311,6 +312,7 @@ message SkycoinTransactionOutput {
 	required uint64 coin = 2;          // Amount of coins to transfer
 	required uint64 hour = 3;          // Coin hours involved during transaction
 	optional uint32 address_index = 4; // Receiver address index if managed by this Skywallet
+	optional Bip44AddrIndex bip44_addr = 5;  // specification to generate a bip 44 address.
 }
 
 message Bip44AddrIndex {

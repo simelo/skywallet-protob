@@ -776,13 +776,22 @@ func (d *Device) SignMessage(addressN, addressIndex int, message, walletType str
 }
 
 // TransactionSign Ask the device to sign a transaction using the given information.
-func (d *Device) TransactionSign(inputs []*messages.SkycoinTransactionInput, outputs []*messages.SkycoinTransactionOutput) (wire.Message, error) {
+func (d *Device) TransactionSign(inputs []*messages.SkycoinTransactionInput, outputs []*messages.SkycoinTransactionOutput, walletType string) (wire.Message, error) {
 	if err := d.Connect(); err != nil {
 		return wire.Message{}, err
 	}
 	defer d.Disconnect()
 
-	transactionSignChunks, err := MessageTransactionSign(inputs, outputs)
+	var err error
+	var transactionSignChunks [][64]byte
+	switch walletType {
+	case walletTypeDeterministic:
+		transactionSignChunks, err = MessageTransactionSign(inputs, outputs)
+	case walletTypeBip44:
+		transactionSignChunks, err = MessageTransactionSignBip44(coinTypeSkycoin, 0, inputs, outputs)
+	default:
+		return wire.Message{}, ErrInvalidWalletType
+	}
 	if err != nil {
 		return wire.Message{}, err
 	}

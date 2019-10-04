@@ -41,6 +41,7 @@ func addressGenCmd() gcli.Command {
 			gcli.StringFlag{
 				Name: "walletType",
 				Usage: "Wallet type. Types are \"deterministic\" or \"bip44\"",
+				Required: true,
 			},
 		},
 		OnUsageError: onCommandUsageError(name),

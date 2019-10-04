@@ -85,6 +85,8 @@ type Devicer interface {
 	ButtonAck() (wire.Message, error)
 	SetAutoPressButton(simulateButtonPress bool, simulateButtonType ButtonType) error
 	Close()
+	Connect() error
+	Disconnect() error
 }
 
 // Device provides hardware wallet functions
@@ -94,7 +96,7 @@ type Device struct {
 	// mutex to force connect requests to be sequential
 	sync.Mutex
 	dev                 usb.Device
-	devReferenceCounter int
+	connected           bool
 	simulateButtonPress bool
 	simulateButtonType  ButtonType
 }
@@ -129,7 +131,7 @@ func newDevice(deviceType DeviceType) *Device {
 		driver,
 		sync.Mutex{},
 		nil,
-		0,
+		false,
 		false,
 		ButtonType(-1),
 	}
@@ -155,16 +157,14 @@ func (d *Device) Close() {
 func (d *Device) Connect() error {
 	d.Lock()
 	defer d.Unlock()
-	if d.devReferenceCounter == 0 {
-
+	if !d.connected {
 		dev, err := d.Driver.GetDevice()
 		if err == nil {
 			d.dev = dev
-			d.devReferenceCounter++
+			d.connected = true
 		}
 		return err
 	}
-	d.devReferenceCounter++
 	return nil
 }
 
@@ -172,11 +172,11 @@ func (d *Device) Connect() error {
 func (d *Device) Disconnect() error {
 	d.Lock()
 	defer d.Unlock()
-	d.devReferenceCounter--
-	if d.devReferenceCounter == 0 {
+	if d.connected {
 		err := d.dev.Close(false)
 		if err == nil {
 			d.dev = nil
+			d.connected = false
 		}
 		return nil
 	}

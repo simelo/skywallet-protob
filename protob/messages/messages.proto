@@ -619,14 +619,5 @@ message BitcoinTxAck {
         repeated TxOutputBinType bin_outputs = 3;
         optional uint32 lock_time = 4;
         repeated TxOutputType outputs = 5;
-        optional uint32 inputs_cnt = 6;
-        optional uint32 outputs_cnt = 7;
-        optional bytes extra_data = 8;          // only for Zcash
-        optional uint32 extra_data_len = 9;     // only for Zcash
-        optional uint32 expiry = 10;            // only for Decred and Zcash
-        optional bool overwintered = 11;        // only for Zcash
-        optional uint32 version_group_id = 12;  // only for Zcash, nVersionGroupId when overwintered is set
-        optional uint32 timestamp = 13;         // only for Capricoin, transaction timestamp
-        optional uint32 branch_id = 14;         // only for Zcash, BRANCH_ID when overwintered is set
     }
 }

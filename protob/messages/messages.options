@@ -79,6 +79,3 @@ BitcoinSignTx.coin_name                         max_size:36
 BitcoinTxAck.TransactionType.inputs                     max_count:15
 BitcoinTxAck.TransactionType.bin_outputs                max_count:15
 BitcoinTxAck.TransactionType.outputs                    max_count:15
-BitcoinTxAck.TransactionType.extra_data                 max_size:32
-BitcoinTxAck.TransactionType.TxInputType.address_n      max_count:15
-BitcoinTxAck.TransactionType.TxInputType.prev_hash      max_size:32

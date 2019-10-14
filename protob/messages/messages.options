@@ -75,16 +75,10 @@ TxAck.TransactionType.TxInputType.address_n     max_count:8
 TxAck.TransactionType.TxOutputType.address      max_size:36
 TxAck.TransactionType.TxOutputType.address_n    max_count:8
 
-BitcoinGetAddress.address_n                     max_count:8
-BitcoinGetAddress.coin_name                     max_size:36
-BitcoinGetPublicKey.address_n                   max_count:8
-BitcoinGetPublicKey.ecdsa_curve_name            max_size:10
-BitcoinGetPublicKey.coin_name                   max_size:36
-BitcoinPublicKey.xpub                           max_size:36
-BitcoinAddress.address                          max_size:37
-BitcoinSignMessage.address_n                    max_count:8
-BitcoinSignMessage.coin_name                    max_size:36
-BitcoinMessageSignature.address                 max_size:37
-BitcoinVerifyMessage.address                    max_size:37
-BitcoinVerifyMessage.coin_name                  max_size:36
 BitcoinSignTx.coin_name                         max_size:36
+BitcoinTxAck.TransactionType.inputs                     max_count:15
+BitcoinTxAck.TransactionType.bin_outputs                max_count:15
+BitcoinTxAck.TransactionType.outputs                    max_count:15
+BitcoinTxAck.TransactionType.extra_data                 max_size:32
+BitcoinTxAck.TransactionType.TxInputType.address_n      max_count:15
+BitcoinTxAck.TransactionType.TxInputType.prev_hash      max_size:32

@@ -584,7 +584,7 @@ message BitcoinSignTx {
     optional string coin_name = 3 [default='Bitcoin'];  // coin to use
     optional uint32 version = 4 [default=1];            // transaction version
     optional uint32 lock_time = 5 [default=0];          // transaction lock_time
-    optional uint32 expiry = 6;                         // only for Decred and Zcash
+	optional uint32 expiry = 6;                         // only for Decred and Zcash
     optional bool overwintered = 7;                     // only for Zcash
     optional uint32 version_group_id = 8;               // only for Zcash, nVersionGroupId when overwintered is set
     optional uint32 timestamp = 9;                      // only for Capricoin, transaction timestamp
@@ -619,5 +619,14 @@ message BitcoinTxAck {
         repeated TxOutputBinType bin_outputs = 3;
         optional uint32 lock_time = 4;
         repeated TxOutputType outputs = 5;
+		optional uint32 inputs_cnt = 6;
+        optional uint32 outputs_cnt = 7;
+		optional bytes extra_data = 8;          // only for Zcash
+        optional uint32 extra_data_len = 9;     // only for Zcash
+        optional uint32 expiry = 10;            // only for Decred and Zcash
+        optional bool overwintered = 11;        // only for Zcash
+        optional uint32 version_group_id = 12;  // only for Zcash, nVersionGroupId when overwintered is set
+        optional uint32 timestamp = 13;         // only for Capricoin, transaction timestamp
+        optional uint32 branch_id = 14;         // only for Zcash, BRANCH_ID when overwintered is set
     }
 }

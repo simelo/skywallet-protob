@@ -75,7 +75,8 @@ TxAck.TransactionType.TxInputType.address_n     max_count:8
 TxAck.TransactionType.TxOutputType.address      max_size:36
 TxAck.TransactionType.TxOutputType.address_n    max_count:8
 
-BitcoinSignTx.coin_name                         max_size:36
-BitcoinTxAck.TransactionType.inputs                     max_count:15
-BitcoinTxAck.TransactionType.bin_outputs                max_count:15
-BitcoinTxAck.TransactionType.outputs                    max_count:15
+BitcoinSignTx.coin_name                         max_size:21
+BitcoinTxAck.TransactionType.inputs             max_count:1
+BitcoinTxAck.TransactionType.bin_outputs        max_count:1
+BitcoinTxAck.TransactionType.outputs            max_count:1
+BitcoinTxAck.TransactionType.extra_data         max_size:1024

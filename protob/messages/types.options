@@ -31,6 +31,7 @@ TxRequestSerializedType.serialized_tx	max_size:2048
 MultisigRedeemScriptType.pubkeys	max_count:15
 MultisigRedeemScriptType.signatures	max_count:15 max_size:73
 MultisigRedeemScriptType.nodes      max_count:15
+MultisigRedeemScriptType.address_n  max_count:8
 
 IdentityType.proto			max_size:9
 IdentityType.user			max_size:64

@@ -320,10 +320,9 @@ message SkycoinTransactionOutput {
 }
 
 message Bip44AddrIndex {
-	required uint32 purpose = 1;
-	required uint32 coin_type = 2;
-	required uint32 account = 3;
-	required uint32 change = 4;
-	required uint32 address_start_index = 5; // index of the first address - if not provided the device will assume 0
-	required uint32 address_n = 6; // generate n addresses starting from address_start_index
+	required uint32 coin_type = 1;
+	required uint32 account = 2;
+	required uint32 change = 3;
+	required uint32 address_start_index = 4; // index of the first address - if not provided the device will assume 0
+	required uint32 address_n = 5; // generate n addresses starting from address_start_index
 }

@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
+- A `Bip44AddrIndex` type definition according to the bip 44 specification.
+- A `Bip44AddrIndex` field to `SkycoinAddress`.
+- A `Bip44AddrIndex` field to `SkycoinSignMessage`.
+- A `Bip44AddrIndex` field to `SkycoinTransactionInput`.
+- A `Bip44AddrIndex` field to `SkycoinTransactionOutput`.
 
 ### Fixed
 

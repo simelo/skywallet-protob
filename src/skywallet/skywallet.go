@@ -49,12 +49,17 @@ var (
 	// ErrNoDeviceConnected is returned if no device is connected to the system
 	ErrNoDeviceConnected = errors.New("no device connected")
 	// ErrInvalidWalletType a valid wallet type should  be specified
-	ErrInvalidWalletType = errors.New("invalid wallet type, options are: " + walletTypeDeterministic + " or " + walletTypeBip44)
+	ErrInvalidWalletType = errors.New("invalid wallet type, options are: " + WalletTypeDeterministic + " or " + WalletTypeBip44)
 )
 
 const (
-	walletTypeDeterministic = "deterministic"
-	walletTypeBip44 = "bip44"
+	// WalletTypeDeterministic specify use deterministic derivation to get
+	// for example an address
+	WalletTypeDeterministic = "deterministic"
+
+	// WalletTypeBip44 specify use BIP 44 derivation to get
+	// for example an address
+	WalletTypeBip44 = "bip44"
 	coinTypeSkycoin = 8000
 	firstHardenedChild = uint32(0x80000000)
 )
@@ -214,9 +219,9 @@ func (d *Device) AddressGen(addressN, startIndex uint32, confirmAddress bool, wa
 	var err error
 	var addressGenChunks [][64]byte
 	switch walletType {
-	case walletTypeDeterministic:
+	case WalletTypeDeterministic:
 		addressGenChunks, err = MessageAddressGen(addressN, startIndex, confirmAddress)
-	case walletTypeBip44:
+	case WalletTypeBip44:
 		addressGenChunks, err = MessageAddressGenBip44(addressN, startIndex, coinTypeSkycoin, 0, confirmAddress)
 	default:
 		return wire.Message{}, ErrInvalidWalletType
@@ -756,9 +761,9 @@ func (d *Device) SignMessage(addressN, addressIndex int, message, walletType str
 	var err error
 	var signMessageChunks [][64]byte
 	switch walletType {
-	case walletTypeDeterministic:
+	case WalletTypeDeterministic:
 		signMessageChunks, err = MessageSignMessage(addressIndex, message)
-	case walletTypeBip44:
+	case WalletTypeBip44:
 		signMessageChunks, err = MessageSignMessageBip44(uint32(addressIndex), uint32(addressN), coinTypeSkycoin, 0, message)
 	default:
 		return wire.Message{}, ErrInvalidWalletType
@@ -785,9 +790,9 @@ func (d *Device) TransactionSign(inputs []*messages.SkycoinTransactionInput, out
 	var err error
 	var transactionSignChunks [][64]byte
 	switch walletType {
-	case walletTypeDeterministic:
+	case WalletTypeDeterministic:
 		transactionSignChunks, err = MessageTransactionSign(inputs, outputs)
-	case walletTypeBip44:
+	case WalletTypeBip44:
 		transactionSignChunks, err = MessageTransactionSignBip44(coinTypeSkycoin, 0, inputs, outputs)
 	default:
 		return wire.Message{}, ErrInvalidWalletType

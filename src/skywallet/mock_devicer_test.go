@@ -2,7 +2,7 @@
 
 package skywallet
 
-import messages "github.com/skycoin/hardware-wallet-protob/go"
+import messages "github.com/fibercrypto/skywallet-go/go"
 import mock "github.com/stretchr/testify/mock"
 import wire "github.com/skycoin/hardware-wallet-go/src/skywallet/wire"
 

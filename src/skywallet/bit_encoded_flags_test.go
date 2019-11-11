@@ -4,7 +4,7 @@ import (
 	"math/rand"
 	"testing"
 
-	messages "github.com/skycoin/hardware-wallet-protob/go"
+	messages "github.com/fibercrypto/skywallet-go/go"
 	"github.com/stretchr/testify/suite"
 )
 

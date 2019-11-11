@@ -7,7 +7,7 @@ import (
 
 	gcli "github.com/urfave/cli"
 
-	messages "github.com/skycoin/hardware-wallet-protob/go"
+	messages "github.com/fibercrypto/skywallet-go/go"
 
 	skyWallet "github.com/skycoin/hardware-wallet-go/src/skywallet"
 )

@@ -5,7 +5,7 @@ import (
 	"os"
 	"runtime"
 
-	messages "github.com/skycoin/hardware-wallet-protob/go"
+	messages "github.com/fibercrypto/skywallet-go/go"
 
 	gcli "github.com/urfave/cli"
 

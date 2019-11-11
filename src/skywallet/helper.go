@@ -12,7 +12,7 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 
-	messages "github.com/skycoin/hardware-wallet-protob/go"
+	messages "github.com/fibercrypto/skywallet-go/go"
 
 	"github.com/skycoin/hardware-wallet-go/src/skywallet/usb"
 	"github.com/skycoin/hardware-wallet-go/src/skywallet/wire"

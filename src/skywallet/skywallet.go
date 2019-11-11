@@ -11,7 +11,7 @@ import (
 
 	"github.com/skycoin/skycoin/src/util/logging"
 
-	messages "github.com/skycoin/hardware-wallet-protob/go"
+	messages "github.com/fibercrypto/skywallet-go/go"
 
 	"github.com/skycoin/hardware-wallet-go/src/skywallet/wire"
 )
@@ -81,6 +81,7 @@ type Devicer interface {
 	GenerateMnemonic(wordCount uint32, usePassphrase bool) (wire.Message, error)
 	Recovery(wordCount uint32, usePassphrase *bool, dryRun bool) (wire.Message, error)
 	SetMnemonic(mnemonic string) (wire.Message, error)
+	// , walletType string
 	TransactionSign(inputs []*messages.SkycoinTransactionInput, outputs []*messages.SkycoinTransactionOutput) (wire.Message, error)
 	SignMessage(addressIndex int, message string) (wire.Message, error)
 	Wipe() (wire.Message, error)

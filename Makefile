@@ -47,7 +47,7 @@ PROTOB_SRC_DIR  = $(GOPATH)/src/$(PROTOC_GOGO_URL)
 # Set it explicitly either when generating to acustom location 
 # or when this repository is included at a subpath other than vendor
 # e.g. go library should set this to github.com/skycoin/hardware-wallet-go/src/device-wallet/messages
-GO_IMPORT ?= github.com/skycoin/hardware-wallet-protob
+GO_IMPORT ?= github.com/fibercrypto/skywallet-protob
 GO_IMPORT_SED = $(shell echo $(GO_IMPORT) | sed 's/\//\\\//g')
 
 PROTOB_MSG_FILES = $(shell ls -1 $(PROTOB_MSG_DIR)/*.proto)

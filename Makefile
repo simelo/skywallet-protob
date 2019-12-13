@@ -1,7 +1,8 @@
 .DEFAULT_GOAL := help
 .PHONY: help all clean install
 .PHONY: build-go build-js build-c build-py
-.PHONY: install-deps-go install-deps-js install-deps-nanopb install-protoc
+.PHONY: install-deps-go install-deps-js install-deps-nanopb
+.PHONY: install-protoc install-protoc-linux install-protoc-osx install-protoc-win32
 .PHONY: clean-go clean-js clean-c clean-py
 
 REPO_ROOT := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))

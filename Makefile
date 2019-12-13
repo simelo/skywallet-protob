@@ -80,9 +80,9 @@ clean: clean-go clean-js clean-c clean-py ## Delete temporary and output files
 		$$( find . -name '*.swo' ) \
 		$$( find . -name '*.orig' )
 
-install-protoc-linux: install-protoc
+install-protoc-linux: /usr/local/bin/protoc
 
-install-protoc-osx: install-protoc
+install-protoc-osx: /usr/local/bin/protoc
 
 install-protoc-win32: /usr/local/bin/protoc.exe
 
@@ -172,8 +172,8 @@ clean-c: clean-py
 		$$( find $(OUT_C) -name '*.d' ) \
 		$$( find $(OUT_C) -name '*.i' ) \
 		$$( find $(OUT_C) -name '*.s' ) \
-		$$( find $(OUT_C) -name '*.o' ) \
-		/usr/local/bin/protoc*
+		$$( find $(OUT_C) -name '*.o' )
+	sudo rm -f /usr/local/bin/protoc* || exit 0
 
 #----------------
 # Python with nanopb

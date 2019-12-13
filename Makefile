@@ -172,7 +172,8 @@ clean-c: clean-py
 		$$( find $(OUT_C) -name '*.d' ) \
 		$$( find $(OUT_C) -name '*.i' ) \
 		$$( find $(OUT_C) -name '*.s' ) \
-		$$( find $(OUT_C) -name '*.o' )
+		$$( find $(OUT_C) -name '*.o' ) \
+		/usr/local/bin/protoc*
 
 #----------------
 # Python with nanopb

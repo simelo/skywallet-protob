@@ -148,6 +148,7 @@ enum FirmwareFeatures {
  * @used_in DebugLinkState
  * @used_in Storage
  */
+ /*TODO remove this */
 message HDNodeType {
 	required uint32 depth = 1;
 	required uint32 fingerprint = 2;
@@ -157,6 +158,7 @@ message HDNodeType {
 	optional bytes public_key = 6;
 }
 
+/*TODO remove this */
 message HDNodePathType {
 	required HDNodeType node = 1;						// BIP-32 node in deserialized form
 	repeated uint32 address_n = 2;						// BIP-32 path to derive the key from node
@@ -184,6 +186,7 @@ message CoinType {
  * Type of redeem script used in input
  * @used_in TxInputType
  */
+/* TODO remove this */
 message MultisigRedeemScriptType {
 	repeated HDNodePathType pubkeys = 1;					// pubkeys from multisig address (sorted lexicographically)
 	repeated bytes signatures = 2;						// existing signatures for partially signed input
@@ -288,6 +291,7 @@ message IdentityType {
  * Ask Skywallet to generate a skycoin address
  * @used_in SkycoinAddress
  */
+/* TODO remove this */
 enum SkycoinAddressType {
 	AddressTypeSkycoin = 1;
 	AddressTypeBitcoin = 2;
@@ -300,6 +304,7 @@ enum SkycoinAddressType {
 message SkycoinTransactionInput {
 	required string hashIn = 1; // Input hash
 	optional uint32 index = 2;  // Skywallet address index for signing. May be omitted if spent output managed by another wallet
+	optional Bip44AddrIndex bip44_addr = 3;  // specification to generate a bip 44 address.
 }
 
 /**
@@ -311,4 +316,13 @@ message SkycoinTransactionOutput {
 	required uint64 coin = 2;          // Amount of coins to transfer
 	required uint64 hour = 3;          // Coin hours involved during transaction
 	optional uint32 address_index = 4; // Receiver address index if managed by this Skywallet
+	optional Bip44AddrIndex bip44_addr = 5;  // specification to generate a bip 44 address.
+}
+
+message Bip44AddrIndex {
+	required uint32 coin_type = 1;
+	required uint32 account = 2;
+	required uint32 change = 3;
+	required uint32 address_start_index = 4; // index of the first address - if not provided the device will assume 0
+	required uint32 address_n = 5; // generate n addresses starting from address_start_index
 }

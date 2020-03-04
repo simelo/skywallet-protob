@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ### Added
+- A `Bip44AddrIndex` type definition according to the bip 44 specification.
+- A `Bip44AddrIndex` field to `SkycoinAddress`.
+- A `Bip44AddrIndex` field to `SkycoinSignMessage`.
+- A `Bip44AddrIndex` field to `SkycoinTransactionInput`.
+- A `Bip44AddrIndex` field to `SkycoinTransactionOutput`.
+
+### Fixed
+
+### Changed
+
+### Removed
+
+### Fixed
+
+### Security
+
+## v1.0.0
+
+### Added
 
 - Add `RDP` level info in features msg.
 - Add `fw_version_head` field to features msg.
@@ -19,15 +38,3 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Add go code generated from proto files into the `go` folder.
 - Make go folder a proper package that can be vendor'ed from another package
 - Address `index` of `SkycoinTransactionInput` marked as optional.
-
-### Fixed
-
-
-### Changed
-
-### Removed
-
-### Fixed
-
-### Security
-
